@@ -15,8 +15,8 @@ app.listen(PORT, function () {
 	console.log('Server running on PORT ', PORT);
 });
 
-app.post('/search', function (req, res) {
-	var city = req.body.city;
+app.get('/search', function (req, res) {
+	var city = req.query.city;
 	var link = "https://nominatim.openstreetmap.org/search?email=marco.boffo@studenti.unitn.it&city=" + city + "&format=json&limit=1";
 	var retval = inizioHTML();
 	retval += city + "<br />";
@@ -50,7 +50,7 @@ function inizioHTML() {
 	temp += "		</head>\n";
 	temp += "		<body>\n";
 	temp += "			<h1>Insert your city to get sunrise and sunset</h1>\n";
-	temp += "			<form method=\"post\" action=\"/search\">\n";
+	temp += "			<form method=\"get\" action=\"/search\">\n";
 	temp += "					<input type=\"text\" name=\"city\" placeholder=\"Insert city here\">\n";
 	temp += "				<p>\n";
 	temp += "					<input type=\"submit\" value=\"search\">\n";
