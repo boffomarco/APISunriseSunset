@@ -26,11 +26,13 @@ app.post('/search', function (req, res) {
 		var response = JSON.parse(body);
 		var latidute = response[0].lat;
 		var longitude = response[0].lon;
-		const url = "https://api.sunrise-sunset.org/json?lat=" + latidute + "&lng=" + longitude;
+		const url = "http://api.geonames.org/timezoneJSON?username=boffomarco&lat=" + latidute + "&lng=" + longitude;
 		console.log("Latitude: " + latidute + " Longitude: " + longitude);
-		getJSON(url, function (error, response) {
-			var sunrise = response.results.sunrise;
-			var sunset = response.results.sunset;
+		console.log("URL: " + url);
+		request(url, function (err, respo, bodys) {
+			var responses = JSON.parse(bodys);
+			var sunrise = responses.sunrise;
+			var sunset = responses.sunset;
 			console.log("Sunrise: " + sunrise + " Sunset: " + sunset);
 			retval += "Sunrise: " + sunrise + " Sunset: " + sunset + "<br />";
 			retval += fineHTML();
